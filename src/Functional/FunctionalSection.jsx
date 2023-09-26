@@ -18,7 +18,8 @@ export const FunctionalSection = () => {
           <div className={`selector`} onClick={() => {}}>
             unfavorited ( 25 )
           </div>
-          <div className={`selector`} onClick={() => {}}>
+          <div 
+            className={`selector`} onClick={() => {}}>
             create dog
           </div>
         </div>

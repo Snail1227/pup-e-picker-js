@@ -1,13 +1,22 @@
 import { DogCard } from "../Shared/DogCard";
 import { dogPictures } from "../dog-pictures";
+import { useState, useEffect } from 'react';
+import { Requests } from "../api";
 
 // Right now these dogs are constant, but in reality we should be getting these from our server
 export const FunctionalDogs = () => {
+  const [data, setData] = useState([]);
+
+  useEffect (() => {
+    Requests.getAllDogs(setData);
+  }, []);
+  
+  console.log(data);
   return (
     //  the "<> </>"" are called react fragments, it's like adding all the html inside
     // without adding an actual html element
     <>
-      <DogCard
+      {/* <DogCard
         dog={{
           id: 1,
           image: dogPictures.BlueHeeler,
@@ -86,7 +95,30 @@ export const FunctionalDogs = () => {
           alert("clicked empty heart");
         }}
         isLoading={false}
-      />
+      /> */}
+
+      {data.map((item) => (
+        <DogCard
+        dog={{
+          id: item.id,
+          image: item.picture,
+          description: item.comment,
+          isFavorite: true,
+          name: item.name,
+        }}
+          key={item.id}
+          onTrashIconClick={() => {
+            alert("clicked trash");
+          }}
+          onHeartClick={() => {
+            alert("clicked heart");
+          }}
+          onEmptyHeartClick={() => {
+            alert("clicked empty heart");
+          }}
+          isLoading={false}
+        />
+      ))}
     </>
   );
 };
