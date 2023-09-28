@@ -10,11 +10,13 @@ export const FunctionalCreateDogForm = () => {
   const [commentInput, setCommentInput] = useState('');
   const [pictureSelect, setPictureSelect] = useState();
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(pictureSelect)
-    Requests.postDog({ name: nameInput, comment: commentInput, picture:pictureSelect});
+    Requests.postDog({ 
+      name: nameInput, 
+      comment: commentInput, 
+      image: pictureSelect
+    });
   }
 
   return (
@@ -51,7 +53,6 @@ export const FunctionalCreateDogForm = () => {
       <select 
         id="picture" 
         onChange={(e) => {
-          console.log(e.target.value)
           setPictureSelect(e.target.value);
         }}
       >

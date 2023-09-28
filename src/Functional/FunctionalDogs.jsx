@@ -8,7 +8,8 @@ export const FunctionalDogs = () => {
   const [data, setData] = useState([]);
 
   useEffect (() => {
-    Requests.getAllDogs(setData);
+    Requests.getAllDogs({ setData });
+    console.log(data);
   }, []);
   
   console.log(data);
@@ -99,16 +100,15 @@ export const FunctionalDogs = () => {
 
       {data.map((item) => (
         <DogCard
-        dog={{
-          id: item.id,
-          image: item.picture,
-          description: item.comment,
-          isFavorite: true,
-          name: item.name,
-        }}
+          dog={{
+            image: item.image,
+            description: item.comment,
+            isFavorite: true,
+            name: item.name,
+          }}
           key={item.id}
           onTrashIconClick={() => {
-            alert("clicked trash");
+            Requests.deleteDog({  id: item.id });
           }}
           onHeartClick={() => {
             alert("clicked heart");

@@ -2,7 +2,7 @@ export const baseUrl = "http://localhost:3000/pup-e";
 
 export const Requests  = {
   // should return a promise with all dogs in the database
-  postDog: ({ name, comment, picture }) => {
+  postDog: ({ name, comment, image }) => {
     fetch(baseUrl, {
       method: "POST",
       headers: {
@@ -11,7 +11,7 @@ export const Requests  = {
       body: JSON.stringify({
         name,
         comment,
-        picture
+        image,
       })
     })
       .then((data) => data.json())
@@ -20,23 +20,32 @@ export const Requests  = {
   // should create a dog in the database from a partial dog object
   // and return a promise with the result
   
-  getAllDogs: ( {setData} ) => {
+  getAllDogs: ( { setData } ) => {
     fetch(baseUrl, {
       method: "GET",
       headers: {
         "Content-Type": 'application/json',
       },
     })
-    .then((data) => data.json())
+    .then((response) => response.json())
     .then((data) => {
       setData(data);
-      console.log(data);
       return data;
     })  
   },
-
+  
   // should delete a dog from the database
-  deleteDog: () => {},
+  deleteDog: ({ id }) => {
+    fetch(`${baseUrl}/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": 'application/json',
+      },
+    })
+    .then(response => response.text())
+    .then(result => console.log(result));
+  },
+
 
   updateDog: () => {},
 

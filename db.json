@@ -3,12 +3,13 @@
     {
       "id": 1,
       "name": "Scooby-Doo",
-      "comment": "It looks like we've got ourselves a mystery."
+      "comment": "It looks like we've got ourselves a mystery.",
+      "image": "/assets/blue-heeler.png"
     },
     {
-      "name": "sdfgsd",
-      "comment": "sdfsdfsd",
-      "picture": "/assets/corgi.png",
+      "name": "danila",
+      "comment": "lox ebanei",
+      "image": "/assets/corgi.png",
       "id": 2
     }
   ]
