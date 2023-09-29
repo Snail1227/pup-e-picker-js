@@ -1,32 +1,19 @@
 import { DogCard } from "../Shared/DogCard";
 import { dogPictures } from "../dog-pictures";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Requests } from "../api";
 
 // Right now these dogs are constant, but in reality we should be getting these from our server
-export const FunctionalDogs = () => {
+export const FunctionalDogs = ( { allDogs } ) => {
 
-  const [data, setData] = useState([]);
-
-  const fetchDogs = () => {
-    Requests.getAllDogs({ setData });
-  };
-
-  useEffect(() => {
-    fetchDogs();
-  }, []);
-
-  const handleTrashIconClick = (id) => {
-    Requests.deleteDog({ id })
-      .then(() => {
-        fetchDogs();  // Re-fetch the list after a dog is deleted.
-      })
-      .catch(error => {
-        console.error("Error deleting dog:", error);
-      });
-  };
+  // const handleTrashIconClick = (id) => {
+  //   Requests.deleteDog({ id })
+  //     .then(() => {
+  //       fetchDogs();
+  //     });
+  // };
   
-  
+  console.log(allDogs)
   return (
     //  the "<> </>"" are called react fragments, it's like adding all the html inside
     // without adding an actual html element
@@ -112,7 +99,7 @@ export const FunctionalDogs = () => {
         isLoading={false}
       /> */}
 
-      {data.map((item) => (
+      {allDogs.map((item) => (
         <DogCard
           dog={{
             image: item.image,
@@ -122,7 +109,7 @@ export const FunctionalDogs = () => {
           }}
           key={item.id}
           onTrashIconClick={() => {
-            handleTrashIconClick(item.id);
+            // handleTrashIconClick(item.id);
           }}
           onHeartClick={() => {
             alert("clicked heart");
