@@ -1,22 +1,26 @@
+
 export const baseUrl = "http://localhost:3000/pup-e";
 
 export const Requests  = {
+
+    
   // should return a promise with all dogs in the database
-  postDog: ({ name, comment, image }) => {
+  getAllD: () => 
+    fetch(baseUrl).then((response) => response.json()),
+
+
+  createNote: (note) => {
     fetch(baseUrl, {
       method: "POST",
       headers: {
         "Content-type":"application/json",
       },
-      body: JSON.stringify({
-        name,
-        comment,
-        image,
-      })
+      body: JSON.stringify(note)
     })
-      .then((data) => data.json())
-      .then(console.log)
+      .then((response) => response.json())
   },
+
+
   // should create a dog in the database from a partial dog object
   // and return a promise with the result
   

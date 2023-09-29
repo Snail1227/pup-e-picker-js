@@ -8,15 +8,44 @@ const defaultSelectedImage = dogPictures.BlueHeeler;
 export const FunctionalCreateDogForm = () => {
   const [nameInput, setNameInput] = useState('');
   const [commentInput, setCommentInput] = useState('');
-  const [pictureSelect, setPictureSelect] = useState();
+  const [pictureSelect, setPictureSelect] = useState(defaultSelectedImage);
+  const [allNotes, setAllNotes] = useState([])
+  const reset = () => {
+    setNameInput("");
+    setCommentInput("");
+  }
+
+  const createNote = ( note ) => {
+    Requests.createNote(note)
+    .then(() => {
+      return Requests.getAllD();
+    })
+    .then((notes) => {
+      setAllNotes(notes);
+    })
+    .catch(error => {
+      console.error("Error in createNote:", error);
+    });
+  }
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    Requests.postDog({ 
+
+    // Requests.postDog({ 
+    //   name: nameInput, 
+    //   comment: commentInput, 
+    //   image: pictureSelect
+    // });
+
+    createNote({
       name: nameInput, 
       comment: commentInput, 
       image: pictureSelect
-    });
+    })
+    
+
+    reset("");
   }
 
   return (
@@ -28,6 +57,7 @@ export const FunctionalCreateDogForm = () => {
       <h4>Create a New Dog</h4>
       <label htmlFor="name">Dog Name</label>
       <input 
+        name="name"
         type="text" 
         disabled={false} 
         value={nameInput}

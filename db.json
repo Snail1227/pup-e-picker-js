@@ -11,6 +11,12 @@
       "comment": "lox ebanei",
       "image": "/assets/corgi.png",
       "id": 2
+    },
+    {
+      "name": "sadasd",
+      "comment": "asdasd",
+      "image": "/assets/cowardly.png",
+      "id": 3
     }
   ]
 }

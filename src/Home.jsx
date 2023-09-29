@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { dogPictures } from "./dog-pictures";
 
 export const Home = () => {
+
+  
   return (
     <div id="home-page">
       <h1>
