@@ -1,60 +1,28 @@
 import { dogPictures } from "../dog-pictures";
-import { Requests } from "../api.js";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // use this as your default selected image
 const defaultSelectedImage = dogPictures.BlueHeeler;
 
-export const FunctionalCreateDogForm = ( { allData } ) => {
+export const FunctionalCreateDogForm = ({ onAddDog }) => {
+
   const [nameInput, setNameInput] = useState("");
   const [commentInput, setCommentInput] = useState("");
   const [pictureSelect, setPictureSelect] = useState(defaultSelectedImage);
-  const [allNotes, setAllNotes] = useState([]);
 
   const reset = () => {
     setNameInput("");
     setCommentInput("");
+    setPictureSelect(defaultSelectedImage);
   };
-
-  // const refetchData = () => {
-  //   return Requests.getAllNotes().then((notes) => {
-  //     setAllNotes(notes);
-  //   })
-  // }
-
-
-  const fetchDogs = () => {
-    setAllNotes(Requests.getAllDogs())
-  };
-
-  console.log(allNotes)
-
-  useEffect(() => {
-    fetchDogs()
-  }, []);
-
-  
-  // const createNote = (note) => {
-  //   Requests.createNote(note).then(() => {
-  //     refetchData()
-  //   });
-  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Requests.postDog({
-    //   name: nameInput,
-    //   comment: commentInput,
-    //   image: pictureSelect
-    // });
-
-    
-
-    Requests.createNote({
+    onAddDog({
       name: nameInput,
       comment: commentInput,
-      image: pictureSelect,
+      image: pictureSelect
     });
 
     reset();

@@ -1,20 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FunctionalCreateDogForm } from "./FunctionalCreateDogForm";
 import { FunctionalDogs } from "./FunctionalDogs";
 import { FunctionalSection } from "./FunctionalSection";
+import { Requests } from "../api";
 
 export function FunctionalApp() {
-  const [allData, setAllData] = useState([])
+  const [allDogs, setAllDogs] = useState([]);
+
+  useEffect(() => {
+    Requests.getAllDogs(setAllDogs);
+  }, [])
+
+
+  const handleAddDog = (newDog) => {
+    Requests.postDog(newDog)
+      .then((createdDog) => {
+        setAllDogs((prevDogs) => [...prevDogs, createdDog])
+      })
+  }
+
+  const handleDeleteDog = (id) => {
+    Requests.deleteDog(id)
+    .then(() => {
+      setAllDogs((prevDogs) => prevDogs.filter((dog) => dog.id !== id))
+    });
+  }
+
+
   return (
     <div className="App" style={{ backgroundColor: "skyblue" }}>
       <header>
         <h1>pup-e-picker (Functional)</h1>
       </header>
       <FunctionalSection />
-      <FunctionalDogs allDogs={allData}/>
-      <FunctionalCreateDogForm allData={ (allDogs) => {
-          setAllData(allDogs);
-        }} 
+      <FunctionalDogs 
+        allDogs={allDogs}
+        onDelete={handleDeleteDog}
+      />
+      <FunctionalCreateDogForm 
+        onAddDog={handleAddDog}
       />
     </div>
   );
