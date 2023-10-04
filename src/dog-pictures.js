@@ -12,4 +12,5 @@ export const dogPictures = {
   Corgi,
   Cowardly,
   Dalmation,
+  
 };

@@ -4,7 +4,7 @@ import { useState } from "react";
 // use this as your default selected image
 const defaultSelectedImage = dogPictures.BlueHeeler;
 
-export const FunctionalCreateDogForm = ({ onAddDog }) => {
+export const FunctionalCreateDogForm = ({ onAddDog, loading }) => {
 
   const [nameInput, setNameInput] = useState("");
   const [commentInput, setCommentInput] = useState("");
@@ -19,13 +19,15 @@ export const FunctionalCreateDogForm = ({ onAddDog }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    onAddDog({
-      name: nameInput,
-      comment: commentInput,
-      image: pictureSelect
-    });
+    if (nameInput && commentInput) {
+      onAddDog({
+        name: nameInput,
+        comment: commentInput,
+        image: pictureSelect
+      });
+      reset();
+    }
 
-    reset();
   };
 
   return (
@@ -71,7 +73,7 @@ export const FunctionalCreateDogForm = ({ onAddDog }) => {
         })}
       </select>
 
-      <input type="submit" />
+      <input type="submit" disabled={loading}/>
     </form>
   );
 };
