@@ -3,51 +3,71 @@ import { FunctionalCreateDogForm } from "./FunctionalCreateDogForm";
 import { FunctionalDogs } from "./FunctionalDogs";
 import { FunctionalSection } from "./FunctionalSection";
 import { Requests } from "../api";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 export function FunctionalApp() {
-  const [allDogs, setAllDogs] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [allDogs, setAllDogs] = useState([])
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  
 
   useEffect(() => {
     Requests.getAllDogs(setAllDogs);
+    // Requests.getAllDogs()
   }, [])
 
-
   const handleAddDog = (newDog) => {
-    setLoading(true);
+    setIsLoading(true);
     Requests.postDog(newDog)
-      .then((createdDog) => {
-        setAllDogs((prevDogs) => [...prevDogs, createdDog]);
+      .then(() => {
+        Requests.getAllDogs(setAllDogs);
         toast.success(`Created ${newDog.name}`);
       })
-      .finally(() => {
-        setLoading(false);
-      })
+        .finally(() => {
+          setIsLoading(false);
+        })
   }
 
   const handleDeleteDog = (id) => {
+    setIsLoading(true);
     Requests.deleteDog(id)
+      .then(() => Requests.getAllDogs(setAllDogs))
+        .finally(() => {
+          setIsLoading(false);
+        })
+  }
+
+  const handleUpdateDog = (id, isFavorite) => {
+    setIsLoading(true);
+    Requests.updateDog(id, isFavorite)
       .then(() => {
-        setAllDogs((prevDogs) => prevDogs.filter((dog) => dog.id !== id))
-      });
+        Requests.getAllDogs(setAllDogs);
+      })
+        .finally(() => {
+          setIsLoading(false);  
+        });
   }
 
 
   return (
     <div className="App" style={{ backgroundColor: "skyblue" }}>
-      <Toaster />
+      
       <header>
         <h1>pup-e-picker (Functional)</h1>
       </header>
-      <FunctionalSection />
+      <FunctionalSection 
+        allDogs={allDogs}
+        />
       <FunctionalDogs 
+        handleUpdateDog={handleUpdateDog}
         allDogs={allDogs}
         onDelete={handleDeleteDog}
+        isLoading={isLoading}
       />
       <FunctionalCreateDogForm 
         onAddDog={handleAddDog}
-        loading={loading}
+        isLoading={isLoading}
       />
     </div>
   );

@@ -1,10 +1,11 @@
 {
   "pup-e": [
     {
-      "id": 1,
       "name": "Scooby-Doo",
       "comment": "It looks like we've got ourselves a mystery.",
-      "image": "/assets/blue-heeler.png"
+      "image": "/assets/blue-heeler.png",
+      "id": 1,
+      "isFavorite": true
     }
   ]
 }

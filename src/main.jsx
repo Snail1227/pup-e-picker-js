@@ -9,6 +9,7 @@ import "./index.css";
 import { ClassApp } from "./Class/ClassApp";
 import { Toaster } from "react-hot-toast";
 import { Playground } from "./Playground";
+import { FunctionalCreateDogForm } from "./Functional/FunctionalCreateDogForm";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/class",
     element: <ClassApp />,
+  },
+  {
+    path: "../FunctionalCreateDogForm",
+    element: <FunctionalCreateDogForm />,
   },
   {
     path: "/playground",

@@ -3,19 +3,17 @@ export const baseUrl = "http://localhost:3000/pup-e";
 export const Requests = {
   // should return a promise with all dogs in the database
   
-  getAllDogs: ( setAllDogs ) => {
+
+  getAllDogs: (setAllDogs) => {
     fetch(baseUrl, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setAllDogs(data);
-        return data;
-      });
+              "Content-Type": "application/json",
+            },
+    }).then((response) => response.json())
+      .then((data) => setAllDogs(data))
   },
+
 
   // should create a dog in the database from a partial dog object
   // and return a promise with the result
@@ -30,6 +28,7 @@ export const Requests = {
         "name": name,
         "comment": comment,
         "image": image,
+        "isFavorite": false
       })
     })
       .then((response) => response.json())
@@ -44,10 +43,21 @@ export const Requests = {
         "Content-Type": "application/json",
       },
     })
-      .then((response) => response.text());
+      .then((response) => response.json());
   },
 
-  updateDog: () => {},
+  updateDog: (id, isFavorite) => {
+    return fetch(`${baseUrl}/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        "isFavorite": !isFavorite,
+      })
+    })
+      .then((response) => response.json());
+  },
 
   // Just a dummy function for use in the playground
   dummyFunction: () => {
