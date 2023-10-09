@@ -1,14 +1,25 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export const FunctionalSection = ({ allDogs }) => {
+export const FunctionalSection = ({ allDogs, showForm, choseCategory }) => {
   const [selectedCategory, setSelectedCategory] =  useState(null);
 
   const favoritedCount = allDogs.filter(dog => dog.isFavorite).length;
   const unfavoritedCount = allDogs.length - favoritedCount;
 
+  const handleCategoryClick = (category) => {
+    if (selectedCategory === category) {
+      setSelectedCategory(null);
+    } else {
+      setSelectedCategory(category);
+    }
+
+    console.log(selectedCategory)
+    console.log(category)
+    showForm(category);
+  }
+
   return (
-    <section id="main-section">
       <div className="container-header">
         <div className="container-label">Dogs: </div>
         <Link to={"/class"} className="btn">
@@ -17,31 +28,24 @@ export const FunctionalSection = ({ allDogs }) => {
         <div className="selectors">
           {/* This should display the favorited count */}
           <div 
-            className={`selector ${selectedCategory === 'favorited' ? 'active' : ''}`} 
-            onClick={() => setSelectedCategory('favorited')}>
+            className={`selector ${selectedCategory === "favorite" ? "active" : ""}`} 
+            onClick={() => handleCategoryClick("favorite")}>
             favorited ( {favoritedCount} )
           </div>
 
           {/* This should display the unfavorited count */}
           <div 
-            className={`selector ${selectedCategory === 'unfavorited' ? 'active' : ''}`} 
-            onClick={() => setSelectedCategory('unfavorited')}>
+            className={`selector ${selectedCategory === "unfavorite" ? "active" : ""}`} 
+            onClick={() => handleCategoryClick("unfavorite")}>
             unfavorited ( {unfavoritedCount} )
           </div>
 
           <div 
-            className={`selector ${selectedCategory === true ? 'active' : ""}`} 
-            onClick={() => setSelectedCategory(selectedCategory === true ? false : true)}>
-            <Link 
-              to={"/FunctionalCreateDogForm"} 
-              onClick={() => setSelectedCategory('create')}
-            >
+            className={`selector ${selectedCategory === 'create' ? 'active' : ""}`} 
+            onClick={() => handleCategoryClick("create")}>
             create dog
-            </Link>
           </div>
         </div>
       </div>
-      <div className="content-container"></div>
-    </section>
   );
 };

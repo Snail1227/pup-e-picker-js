@@ -6,15 +6,24 @@ import { Requests } from "../api";
 import { toast } from "react-hot-toast";
 
 export function FunctionalApp() {
-  const [allDogs, setAllDogs] = useState([])
+  const [filterDogs, setFilterDogs] = useState("")
+  const [allDogs, setAllDogs] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
 
-  
+  const [showForm, setShowForm] = useState(false);
+
+  const choseCategory = (category) => {
+    if (category === "favorite") {
+      const favoriteDogs = allDogs.filter(dog => dog.isFavorite);
+      setAllDogs(favoriteDogs)
+    } else {
+      Requests.getAllDogs(setAllDogs);
+    }
+  }
 
   useEffect(() => {
     Requests.getAllDogs(setAllDogs);
-    // Requests.getAllDogs()
   }, [])
 
   const handleAddDog = (newDog) => {
@@ -49,6 +58,13 @@ export function FunctionalApp() {
         });
   }
 
+  const handleCreateForm = (create) => {
+    if (create === "create") {
+      setShowForm(showForm === false ? true : false);
+    } else {
+      setShowForm(false);
+    }
+  }
 
   return (
     <div className="App" style={{ backgroundColor: "skyblue" }}>
@@ -56,19 +72,31 @@ export function FunctionalApp() {
       <header>
         <h1>pup-e-picker (Functional)</h1>
       </header>
-      <FunctionalSection 
-        allDogs={allDogs}
-        />
-      <FunctionalDogs 
-        handleUpdateDog={handleUpdateDog}
-        allDogs={allDogs}
-        onDelete={handleDeleteDog}
-        isLoading={isLoading}
-      />
-      <FunctionalCreateDogForm 
-        onAddDog={handleAddDog}
-        isLoading={isLoading}
-      />
+      <section id="main-section">
+        <FunctionalSection 
+          showForm={handleCreateForm}
+          allDogs={allDogs}
+          choseCategory={choseCategory}
+          />
+        <div className="content-container">
+          { !showForm &&
+            <FunctionalDogs 
+              category={filterDogs}
+              handleUpdateDog={handleUpdateDog}
+              allDogs={allDogs}
+              onDelete={handleDeleteDog}
+              isLoading={isLoading}
+            />
+            }
+          
+          { showForm && 
+            <FunctionalCreateDogForm 
+              onAddDog={handleAddDog}
+              isLoading={isLoading}
+            />
+          }
+        </div>
+      </section>
     </div>
   );
 }
