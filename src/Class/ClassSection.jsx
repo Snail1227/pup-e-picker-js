@@ -1,34 +1,54 @@
-import { Component } from "react";
-import { Link } from "react-router-dom";
+import { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export class ClassSection extends Component {
-  render() {
-    return (
-      <section id="main-section">
-        <div className="container-header">
-          <div className="container-label">Dogs: </div>
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedCategory: null,
+        };
+    }
 
-          <Link to={"/functional"} className="btn">
-            Change to Functional
-          </Link>
+    handleCategoryClick = (category) => {
+        if (this.state.selectedCategory === category) {
+            this.setState({ selectedCategory: null });
+            this.props.dogsCategory(null);
+        } else {
+            this.setState({ selectedCategory: category });
+            this.props.dogsCategory(category);
+        }
+        this.props.showForm(category);
+    };
 
-          <div className="selectors">
-            {/* This should display the favorited count */}
-            <div className={`selector`} onClick={() => {}}>
-              favorited ( 0 )
-            </div>
+    render() {
+        const { allDogs } = this.props;
+        const favoritedCount = allDogs.filter(dog => dog.isFavorite).length;
+        const unfavoritedCount = allDogs.length - favoritedCount;
 
-            {/* This should display the unfavorited count */}
-            <div className={`selector`} onClick={() => {}}>
-              unfavorited ( 0 )
+        return (
+            <div className="container-header">
+                <div className="container-label">Dogs: </div>
+                <Link to={"/functional"} className="btn">
+                    Change to Functional
+                </Link>
+                <div className="selectors">
+                    <div
+                        className={`selector ${this.state.selectedCategory === "favorite" ? "active" : ""}`}
+                        onClick={() => this.handleCategoryClick("favorite")}>
+                        favorited ( {favoritedCount} )
+                    </div>
+                    <div
+                        className={`selector ${this.state.selectedCategory === "unfavorite" ? "active" : ""}`}
+                        onClick={() => this.handleCategoryClick("unfavorite")}>
+                        unfavorited ( {unfavoritedCount} )
+                    </div>
+                    <div
+                        className={`selector ${this.state.selectedCategory === 'create' ? 'active' : ""}`}
+                        onClick={() => this.handleCategoryClick("create")}>
+                        create dog
+                    </div>
+                </div>
             </div>
-            <div className={`selector active`} onClick={() => {}}>
-              create dog
-            </div>
-          </div>
-        </div>
-        <div className="content-container"></div>
-      </section>
-    );
-  }
+        );
+    }
 }

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export const FunctionalSection = ({ allDogs, showForm, choseCategory }) => {
+export const FunctionalSection = ({ allDogs, showForm, dogsCategory }) => {
   const [selectedCategory, setSelectedCategory] =  useState(null);
 
   const favoritedCount = allDogs.filter(dog => dog.isFavorite).length;
@@ -10,13 +10,13 @@ export const FunctionalSection = ({ allDogs, showForm, choseCategory }) => {
   const handleCategoryClick = (category) => {
     if (selectedCategory === category) {
       setSelectedCategory(null);
+      dogsCategory(null);
+      showForm(false);
     } else {
       setSelectedCategory(category);
+      dogsCategory(category);
+      showForm(category);
     }
-
-    console.log(selectedCategory)
-    console.log(category)
-    showForm(category);
   }
 
   return (

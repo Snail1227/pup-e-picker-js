@@ -5,21 +5,14 @@
       "comment": "It looks like we've got ourselves a mystery.",
       "image": "/assets/blue-heeler.png",
       "id": 1,
-      "isFavorite": true
+      "isFavorite": false
     },
     {
       "name": "sertsertg",
       "comment": "sgrsergstrghd",
       "image": "/assets/chihuahua.avif",
-      "isFavorite": true,
+      "isFavorite": false,
       "id": 2
-    },
-    {
-      "name": "fghfghjfdgh",
-      "comment": "fbntfyjfj",
-      "image": "/assets/dalmation.png",
-      "isFavorite": true,
-      "id": 5
     },
     {
       "name": "sdgfsdfg",
@@ -29,18 +22,32 @@
       "id": 6
     },
     {
-      "name": "sdgfsdfg",
-      "comment": "sdfgbfgbdgf",
-      "image": "/assets/chihuahua.avif",
-      "isFavorite": false,
-      "id": 7
-    },
-    {
       "name": "sdfgsdfg",
       "comment": "sdfgsdfgdf",
       "image": "/assets/chihuahua.avif",
       "isFavorite": false,
       "id": 8
+    },
+    {
+      "name": "sdfgsdfgsdf",
+      "comment": "sgsrgs",
+      "image": "/assets/corgi.png",
+      "isFavorite": false,
+      "id": 11
+    },
+    {
+      "name": "asfedasd",
+      "comment": "adfafdasdf",
+      "image": "/assets/boxer.jpeg",
+      "isFavorite": false,
+      "id": 12
+    },
+    {
+      "name": "zsdfz",
+      "comment": "zdsfzdfzsd",
+      "image": "/assets/chihuahua.avif",
+      "isFavorite": true,
+      "id": 13
     }
   ]
 }

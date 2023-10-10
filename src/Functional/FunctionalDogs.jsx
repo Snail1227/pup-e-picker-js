@@ -1,13 +1,12 @@
 import { DogCard } from "../Shared/DogCard"; 
 
 // Right now these dogs are constant, but in reality we should be getting these from our server
-export const FunctionalDogs = ( { allDogs, onDelete, isLoading, handleUpdateDog} ) => {
+export const FunctionalDogs = ( { allDogs, onDelete, isLoading, handleUpdateDog, category} ) => {
 
+  const toShowDogs = category.length === 0 ? allDogs : category;
   return (
-    //  the "<> </>"" are called react fragments, it's like adding all the html inside
-    // without adding an actual html element
     <>
-      {allDogs.map((item) => (
+      {toShowDogs.map((item) => (
         <DogCard
           dog={{
             image: item.image,

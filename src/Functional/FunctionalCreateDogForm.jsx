@@ -40,7 +40,7 @@ export const FunctionalCreateDogForm = ({ onAddDog, isLoading }) => {
       <input
         name="name"
         type="text"
-        disabled={false}
+        disabled={isLoading}
         value={nameInput}
         onChange={(e) => {
           setNameInput(e.target.value);
@@ -53,7 +53,7 @@ export const FunctionalCreateDogForm = ({ onAddDog, isLoading }) => {
         id=""
         cols={80}
         rows={10}
-        disabled={false}
+        disabled={isLoading}
         value={commentInput}
         onChange={(e) => {
           setCommentInput(e.target.value);

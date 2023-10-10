@@ -6,56 +6,74 @@ import { Requests } from "../api";
 import { toast } from "react-hot-toast";
 
 export function FunctionalApp() {
-  const [filterDogs, setFilterDogs] = useState("")
+  const [listOfFavoriteDogs, setListOfFavoriteDogs] = useState([])
+  const [listOfUnfavoriteDogs, setListOfUnfavoriteDogs] = useState([])
+
   const [allDogs, setAllDogs] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
-
   const [showForm, setShowForm] = useState(false);
 
-  const choseCategory = (category) => {
+  const favoriteDogs = allDogs.filter(dog => dog.isFavorite);
+  const unfavoriteDogs = allDogs.filter(dog => !dog.isFavorite);
+
+  const dogsCategory = (category) => {
+
     if (category === "favorite") {
-      const favoriteDogs = allDogs.filter(dog => dog.isFavorite);
-      setAllDogs(favoriteDogs)
-    } else {
-      Requests.getAllDogs(setAllDogs);
+      setListOfUnfavoriteDogs([])
+      setListOfFavoriteDogs(favoriteDogs);
+    } else if (category === "unfavorite") {
+      setListOfFavoriteDogs([])
+      setListOfUnfavoriteDogs(unfavoriteDogs);
+    }
+     else if (category === null) {
+      setListOfFavoriteDogs([])
+      setListOfUnfavoriteDogs([])
     }
   }
 
   useEffect(() => {
-    Requests.getAllDogs(setAllDogs);
+    allDogsRequest();
   }, [])
+
+  const allDogsRequest = () => Requests.getAllDogs(setAllDogs);
 
   const handleAddDog = (newDog) => {
     setIsLoading(true);
     Requests.postDog(newDog)
       .then(() => {
-        Requests.getAllDogs(setAllDogs);
+        allDogsRequest();
         toast.success(`Created ${newDog.name}`);
       })
-        .finally(() => {
-          setIsLoading(false);
-        })
+      .finally(() => {
+        setIsLoading(false);
+      })
   }
 
   const handleDeleteDog = (id) => {
     setIsLoading(true);
     Requests.deleteDog(id)
-      .then(() => Requests.getAllDogs(setAllDogs))
-        .finally(() => {
-          setIsLoading(false);
-        })
+      .then(() => allDogsRequest())
+      .finally(() => {
+        setIsLoading(false);
+      })
   }
 
   const handleUpdateDog = (id, isFavorite) => {
     setIsLoading(true);
     Requests.updateDog(id, isFavorite)
       .then(() => {
-        Requests.getAllDogs(setAllDogs);
+        if (isFavorite === false) {
+          setListOfUnfavoriteDogs(unfavoriteDogs);
+        } else {
+          setListOfFavoriteDogs(favoriteDogs);
+        }
       })
-        .finally(() => {
-          setIsLoading(false);  
-        });
+      .then(() => allDogsRequest())
+      
+      .finally(() => {
+        setIsLoading(false);  
+      });
   }
 
   const handleCreateForm = (create) => {
@@ -67,8 +85,7 @@ export function FunctionalApp() {
   }
 
   return (
-    <div className="App" style={{ backgroundColor: "skyblue" }}>
-      
+    <div className="App" style={{ backgroundColor: "skyblue" }}> 
       <header>
         <h1>pup-e-picker (Functional)</h1>
       </header>
@@ -76,12 +93,12 @@ export function FunctionalApp() {
         <FunctionalSection 
           showForm={handleCreateForm}
           allDogs={allDogs}
-          choseCategory={choseCategory}
+          dogsCategory={dogsCategory}
           />
         <div className="content-container">
           { !showForm &&
             <FunctionalDogs 
-              category={filterDogs}
+              category={listOfFavoriteDogs.length === 0 ? listOfUnfavoriteDogs : listOfFavoriteDogs}
               handleUpdateDog={handleUpdateDog}
               allDogs={allDogs}
               onDelete={handleDeleteDog}
