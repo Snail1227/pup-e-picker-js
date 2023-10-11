@@ -5,7 +5,7 @@
       "comment": "It looks like we've got ourselves a mystery.",
       "image": "/assets/blue-heeler.png",
       "id": 1,
-      "isFavorite": false
+      "isFavorite": true
     },
     {
       "name": "sertsertg",
@@ -15,39 +15,18 @@
       "id": 2
     },
     {
-      "name": "sdgfsdfg",
-      "comment": "gsdfsfdgsdfgds",
-      "image": "/assets/blue-heeler.png",
-      "isFavorite": false,
-      "id": 6
-    },
-    {
-      "name": "sdfgsdfg",
-      "comment": "sdfgsdfgdf",
-      "image": "/assets/chihuahua.avif",
-      "isFavorite": false,
-      "id": 8
-    },
-    {
-      "name": "sdfgsdfgsdf",
-      "comment": "sgsrgs",
-      "image": "/assets/corgi.png",
-      "isFavorite": false,
-      "id": 11
-    },
-    {
-      "name": "asfedasd",
-      "comment": "adfafdasdf",
-      "image": "/assets/boxer.jpeg",
-      "isFavorite": false,
-      "id": 12
-    },
-    {
-      "name": "zsdfz",
-      "comment": "zdsfzdfzsd",
+      "name": "zsdgfzs",
+      "comment": "dfgsgfdsgf",
       "image": "/assets/chihuahua.avif",
       "isFavorite": true,
-      "id": 13
+      "id": 14
+    },
+    {
+      "name": "zsdgazsfd",
+      "comment": "sdfgsdfgsdgf",
+      "image": "/assets/corgi.png",
+      "isFavorite": false,
+      "id": 15
     }
   ]
 }
