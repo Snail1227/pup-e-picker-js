@@ -7,9 +7,12 @@ export const FunctionalDogs = ({
   isLoading,
   handleUpdateDog,
   category,
+  activatedButton
 }) => {
-  const toShowDogs = category.length === 0 ? allDogs : category;
-  return (
+
+  const toShowDogs = activatedButton === true ? category : allDogs;
+  
+  return ( 
     <>
       {toShowDogs.map((item) => (
         <DogCard

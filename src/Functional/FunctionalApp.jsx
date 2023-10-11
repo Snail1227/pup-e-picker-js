@@ -8,7 +8,7 @@ import { toast } from "react-hot-toast";
 export function FunctionalApp() {
   const [listOfFavoriteDogs, setListOfFavoriteDogs] = useState([]);
   const [listOfUnfavoriteDogs, setListOfUnfavoriteDogs] = useState([]);
-
+  const [activatedButton, setActivatedButton] = useState(false);
   const [allDogs, setAllDogs] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -24,12 +24,15 @@ export function FunctionalApp() {
     setShowForm(category === "create" ? !showForm : false);
 
     if (category === "favorite") {
+      setActivatedButton(true);
       setListOfUnfavoriteDogs([]);
       setListOfFavoriteDogs(favoriteDogs);
     } else if (category === "unfavorite") {
+      setActivatedButton(true);
       setListOfFavoriteDogs([]);
       setListOfUnfavoriteDogs(unfavoriteDogs);
     } else if (category === null) {
+      setActivatedButton(false);
       setListOfFavoriteDogs([]);
       setListOfUnfavoriteDogs([]);
     }
@@ -93,6 +96,7 @@ export function FunctionalApp() {
                   ? listOfUnfavoriteDogs
                   : listOfFavoriteDogs
               }
+              activatedButton={activatedButton}
               handleUpdateDog={handleUpdateDog}
               allDogs={allDogs}
               onDelete={handleDeleteDog}

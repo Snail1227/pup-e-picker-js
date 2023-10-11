@@ -79,7 +79,6 @@ export class ClassApp extends Component {
   };
 
   handleCreateForm = (create) => {
-    console.log(create);
     if (create === "create") {
       this.setState((prevState) => ({ showForm: !prevState.showForm }));
     } else {
