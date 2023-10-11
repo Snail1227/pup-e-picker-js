@@ -5,7 +5,6 @@ import { useState } from "react";
 const defaultSelectedImage = dogPictures.BlueHeeler;
 
 export const FunctionalCreateDogForm = ({ onAddDog, isLoading }) => {
-
   const [nameInput, setNameInput] = useState("");
   const [commentInput, setCommentInput] = useState("");
   const [pictureSelect, setPictureSelect] = useState(defaultSelectedImage);
@@ -26,11 +25,10 @@ export const FunctionalCreateDogForm = ({ onAddDog, isLoading }) => {
         name: nameInput,
         comment: commentInput,
         image: pictureSelect,
-        isFavorite: false
+        isFavorite: false,
       });
       reset();
     }
-
   };
 
   return (
@@ -76,7 +74,7 @@ export const FunctionalCreateDogForm = ({ onAddDog, isLoading }) => {
         })}
       </select>
 
-      <input type="submit" disabled={isLoading}/>
+      <input type="submit" disabled={isLoading} />
     </form>
   );
 };

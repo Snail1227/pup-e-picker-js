@@ -6,35 +6,33 @@ import { Requests } from "../api";
 import { toast } from "react-hot-toast";
 
 export function FunctionalApp() {
-  const [listOfFavoriteDogs, setListOfFavoriteDogs] = useState([])
-  const [listOfUnfavoriteDogs, setListOfUnfavoriteDogs] = useState([])
+  const [listOfFavoriteDogs, setListOfFavoriteDogs] = useState([]);
+  const [listOfUnfavoriteDogs, setListOfUnfavoriteDogs] = useState([]);
 
   const [allDogs, setAllDogs] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
   const [showForm, setShowForm] = useState(false);
 
-  const favoriteDogs = allDogs.filter(dog => dog.isFavorite);
-  const unfavoriteDogs = allDogs.filter(dog => !dog.isFavorite);
+  const favoriteDogs = allDogs.filter((dog) => dog.isFavorite);
+  const unfavoriteDogs = allDogs.filter((dog) => !dog.isFavorite);
 
   const dogsCategory = (category) => {
-
     if (category === "favorite") {
-      setListOfUnfavoriteDogs([])
+      setListOfUnfavoriteDogs([]);
       setListOfFavoriteDogs(favoriteDogs);
     } else if (category === "unfavorite") {
-      setListOfFavoriteDogs([])
+      setListOfFavoriteDogs([]);
       setListOfUnfavoriteDogs(unfavoriteDogs);
+    } else if (category === null) {
+      setListOfFavoriteDogs([]);
+      setListOfUnfavoriteDogs([]);
     }
-     else if (category === null) {
-      setListOfFavoriteDogs([])
-      setListOfUnfavoriteDogs([])
-    }
-  }
+  };
 
   useEffect(() => {
     allDogsRequest();
-  }, [])
+  }, []);
 
   const allDogsRequest = () => Requests.getAllDogs(setAllDogs);
 
@@ -47,8 +45,8 @@ export function FunctionalApp() {
       })
       .finally(() => {
         setIsLoading(false);
-      })
-  }
+      });
+  };
 
   const handleDeleteDog = (id) => {
     setIsLoading(true);
@@ -56,8 +54,8 @@ export function FunctionalApp() {
       .then(() => allDogsRequest())
       .finally(() => {
         setIsLoading(false);
-      })
-  }
+      });
+  };
 
   const handleUpdateDog = (id, isFavorite) => {
     setIsLoading(true);
@@ -70,11 +68,11 @@ export function FunctionalApp() {
         }
       })
       .then(() => allDogsRequest())
-      
+
       .finally(() => {
-        setIsLoading(false);  
+        setIsLoading(false);
       });
-  }
+  };
 
   const handleCreateForm = (create) => {
     if (create === "create") {
@@ -82,36 +80,40 @@ export function FunctionalApp() {
     } else {
       setShowForm(false);
     }
-  }
+  };
 
   return (
-    <div className="App" style={{ backgroundColor: "skyblue" }}> 
+    <div className="App" style={{ backgroundColor: "skyblue" }}>
       <header>
         <h1>pup-e-picker (Functional)</h1>
       </header>
       <section id="main-section">
-        <FunctionalSection 
+        <FunctionalSection
           showForm={handleCreateForm}
           allDogs={allDogs}
           dogsCategory={dogsCategory}
-          />
+        />
         <div className="content-container">
-          { !showForm &&
-            <FunctionalDogs 
-              category={listOfFavoriteDogs.length === 0 ? listOfUnfavoriteDogs : listOfFavoriteDogs}
+          {!showForm && (
+            <FunctionalDogs
+              category={
+                listOfFavoriteDogs.length === 0
+                  ? listOfUnfavoriteDogs
+                  : listOfFavoriteDogs
+              }
               handleUpdateDog={handleUpdateDog}
               allDogs={allDogs}
               onDelete={handleDeleteDog}
               isLoading={isLoading}
             />
-            }
-          
-          { showForm && 
-            <FunctionalCreateDogForm 
+          )}
+
+          {showForm && (
+            <FunctionalCreateDogForm
               onAddDog={handleAddDog}
               isLoading={isLoading}
             />
-          }
+          )}
         </div>
       </section>
     </div>

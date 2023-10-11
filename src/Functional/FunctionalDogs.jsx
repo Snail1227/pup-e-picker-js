@@ -1,8 +1,13 @@
-import { DogCard } from "../Shared/DogCard"; 
+import { DogCard } from "../Shared/DogCard";
 
 // Right now these dogs are constant, but in reality we should be getting these from our server
-export const FunctionalDogs = ( { allDogs, onDelete, isLoading, handleUpdateDog, category} ) => {
-
+export const FunctionalDogs = ({
+  allDogs,
+  onDelete,
+  isLoading,
+  handleUpdateDog,
+  category,
+}) => {
   const toShowDogs = category.length === 0 ? allDogs : category;
   return (
     <>
