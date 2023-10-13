@@ -31,8 +31,8 @@ export class ClassSection extends Component {
     return (
       <div className="container-header">
         <div className="container-label">Dogs: </div>
-        <Link to={"/class"} className="btn">
-          Change to Class
+        <Link to={"/functional"} className="btn">
+          Change to Functional
         </Link>
         <div className="selectors">
           {/* This should display the favorited count */}

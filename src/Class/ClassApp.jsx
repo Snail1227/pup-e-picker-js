@@ -84,7 +84,7 @@ export class ClassApp extends Component {
     })();
 
     return (
-      <div className="App" style={{ backgroundColor: "skyblue" }}>
+      <div className="App" style={{ backgroundColor: "goldenrod" }}>
         <header>
           <h1>pup-e-picker (Class)</h1>
         </header>

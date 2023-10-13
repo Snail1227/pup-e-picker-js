@@ -13,13 +13,6 @@
       "image": "/assets/corgi.png",
       "isFavorite": false,
       "id": 2
-    },
-    {
-      "name": "sdgfsdfg",
-      "comment": "dfgdfgdfg",
-      "image": "/assets/cowardly.png",
-      "isFavorite": true,
-      "id": 4
     }
   ]
 }
