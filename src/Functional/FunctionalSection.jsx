@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export const FunctionalSection = ({ allDogs, dogsCategory }) => {
-  const [selectedCategory, setSelectedCategory] = useState(null);
+export const FunctionalSection = ({ allDogs, toggleTab }) => {
+  const [selectedCategory, setSelectedCategory] = useState("none");
 
   const favoritedCount = allDogs.filter((dog) => dog.isFavorite).length;
-  const unfavoritedCount = allDogs.length - favoritedCount;
+  const unfavoritedCount = allDogs.filter((dog) => !dog.isFavorite).length;
 
   const handleCategoryClick = (category) => {
     if (selectedCategory === category) {
-      setSelectedCategory(null);
-      dogsCategory(null);
+      setSelectedCategory('none');
+      toggleTab("none");
     } else {
       setSelectedCategory(category);
-      dogsCategory(category);
+      toggleTab(category);
     }
   };
 
@@ -27,9 +27,9 @@ export const FunctionalSection = ({ allDogs, dogsCategory }) => {
         {/* This should display the favorited count */}
         <div
           className={`selector ${
-            selectedCategory === "favorite" ? "active" : ""
+            selectedCategory === "favorited" ? "active" : ""
           }`}
-          onClick={() => handleCategoryClick("favorite")}
+          onClick={() => handleCategoryClick("favorited")}
         >
           favorited ( {favoritedCount} )
         </div>
@@ -37,18 +37,18 @@ export const FunctionalSection = ({ allDogs, dogsCategory }) => {
         {/* This should display the unfavorited count */}
         <div
           className={`selector ${
-            selectedCategory === "unfavorite" ? "active" : ""
+            selectedCategory === "unfavorited" ? "active" : ""
           }`}
-          onClick={() => handleCategoryClick("unfavorite")}
+          onClick={() => handleCategoryClick("unfavorited")}
         >
           unfavorited ( {unfavoritedCount} )
         </div>
 
         <div
           className={`selector ${
-            selectedCategory === "create" ? "active" : ""
+            selectedCategory === "create-dog-form" ? "active" : ""
           }`}
-          onClick={() => handleCategoryClick("create")}
+          onClick={() => handleCategoryClick("create-dog-form")}
         >
           create dog
         </div>

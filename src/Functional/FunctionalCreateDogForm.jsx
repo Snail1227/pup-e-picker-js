@@ -61,13 +61,17 @@ export const FunctionalCreateDogForm = ({ onAddDog, isLoading }) => {
       <label htmlFor="picture">Select an Image</label>
       <select
         id="picture"
+        value={pictureSelect}
         onChange={(e) => {
           setPictureSelect(e.target.value);
         }}
       >
         {Object.entries(dogPictures).map(([label, pictureValue]) => {
           return (
-            <option value={pictureValue} key={pictureValue}>
+            <option 
+              value={pictureValue} 
+              key={pictureValue}
+            >
               {label}
             </option>
           );

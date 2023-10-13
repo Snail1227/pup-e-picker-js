@@ -2,19 +2,15 @@ import { DogCard } from "../Shared/DogCard";
 
 // Right now these dogs are constant, but in reality we should be getting these from our server
 export const FunctionalDogs = ({
-  allDogs,
-  onDelete,
+  handleDeleteDog,
   isLoading,
   handleUpdateDog,
-  category,
-  activatedButton
+  filteredDogs
 }) => {
-
-  const toShowDogs = activatedButton === true ? category : allDogs;
   
   return ( 
     <>
-      {toShowDogs.map((item) => (
+      {filteredDogs.map((item) => (
         <DogCard
           dog={{
             image: item.image,
@@ -24,7 +20,7 @@ export const FunctionalDogs = ({
           }}
           key={item.id}
           onTrashIconClick={() => {
-            onDelete(item.id);
+            handleDeleteDog(item.id);
           }}
           onHeartClick={() => {
             handleUpdateDog(item.id, item.isFavorite);

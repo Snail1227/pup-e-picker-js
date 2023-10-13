@@ -14,6 +14,7 @@ export class ClassCreateDogForm extends Component {
     };
   }
 
+
   reset = () => {
     this.setState({
       nameInput: "",
@@ -27,7 +28,7 @@ export class ClassCreateDogForm extends Component {
 
     const { nameInput, commentInput, pictureSelect } = this.state;
     const filledData = nameInput && commentInput;
-
+    console.log(dogPictures)
     if (filledData) {
       this.props.onAddDog({
         name: nameInput,
@@ -40,8 +41,7 @@ export class ClassCreateDogForm extends Component {
   };
 
   render() {
-    const { nameInput, commentInput, isLoading } = this.state;
-    const dogPictures = this.props.dogPictures || {};
+    const { nameInput, commentInput, isLoading, pictureSelect } = this.state;
 
     return (
       <form action="" id="create-dog-form" onSubmit={this.handleSubmit}>
@@ -73,13 +73,17 @@ export class ClassCreateDogForm extends Component {
         <label htmlFor="picture">Select an Image</label>
         <select
           id="picture"
+          value={pictureSelect}
           onChange={(e) => {
             this.setState({ pictureSelect: e.target.value });
           }}
         >
           {Object.entries(dogPictures).map(([label, pictureValue]) => {
             return (
-              <option value={pictureValue} key={pictureValue}>
+              <option 
+                value={pictureValue} 
+                key={pictureValue}
+              >
                 {label}
               </option>
             );

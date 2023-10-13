@@ -8,25 +8,18 @@
       "isFavorite": true
     },
     {
-      "name": "sertsertg",
-      "comment": "sgrsergstrghd",
-      "image": "/assets/chihuahua.avif",
-      "isFavorite": true,
+      "name": "asdfasdfva",
+      "comment": "dfadsfasdf",
+      "image": "/assets/corgi.png",
+      "isFavorite": false,
       "id": 2
     },
     {
-      "name": "zsdgfzs",
-      "comment": "dfgsgfdsgf",
-      "image": "/assets/chihuahua.avif",
+      "name": "sdgfsdfg",
+      "comment": "dfgdfgdfg",
+      "image": "/assets/cowardly.png",
       "isFavorite": true,
-      "id": 14
-    },
-    {
-      "name": "zsdgazsfd",
-      "comment": "sdfgsdfgsdgf",
-      "image": "/assets/corgi.png",
-      "isFavorite": true,
-      "id": 15
+      "id": 4
     }
   ]
 }

@@ -5,129 +5,108 @@ import { ClassCreateDogForm } from "./ClassCreateDogForm";
 import { Requests } from "../api";
 import { toast } from "react-hot-toast";
 
-export class ClassApp extends Component {
-  constructor(props) {
-    super(props);
+const VALID_ACTIVE_TABS = {
+  none: 'none',
+  favorited: "favorited",
+  unfavorited: "unfavorited",
+  createDogForm: "create-dog-form",
+}
 
-    this.state = {
-      listOfFavoriteDogs: [],
-      listOfUnfavoriteDogs: [],
-      allDogs: [],
-      isLoading: false,
-      showForm: false,
-    };
+export class ClassApp extends Component {
+  state = {
+    allDogs: [],
+    isLoading: false,
+    activeTab: "none"
+  };
+
+  listOfFavoriteDogs = () => this.state.allDogs.filter((dog) => dog.isFavorite);
+  listOfUnfavoriteDogs = () => this.state.allDogs.filter((dog) => !dog.isFavorite);
+
+  toggleTab = (newTab) => {
+    if (this.state.activeTab === newTab) {
+      this.setState({ activeTab: "none" });
+      return;
+    }
+    this.setState({ activeTab: newTab });
   }
 
   componentDidMount() {
-    Requests.getAllDogs((dogs) => this.setState({ allDogs: dogs }));
+    this.allDogsRequest();
   }
 
-  dogsCategory = (category) => {
-    const favoriteDogs = this.state.allDogs.filter((dog) => dog.isFavorite);
-    const unfavoriteDogs = this.state.allDogs.filter((dog) => !dog.isFavorite);
+  allDogsRequest = () => Requests.getAllDogs().then(allDogs => this.setState({ allDogs }));
 
-    if (category === "favorite") {
-      this.setState({
-        listOfUnfavoriteDogs: [],
-        listOfFavoriteDogs: favoriteDogs,
-      });
-    } else if (category === "unfavorite") {
-      this.setState({
-        listOfFavoriteDogs: [],
-        listOfUnfavoriteDogs: unfavoriteDogs,
-      });
-    } else if (category === null) {
-      this.setState({
-        listOfFavoriteDogs: [],
-        listOfUnfavoriteDogs: [],
-      });
+  withLoading = (func) => async (...args) => {
+    this.setState({ isLoading: true });
+    try {
+      await func(...args);
+    } finally {
+      this.setState({ isLoading: false });
     }
   };
 
-  handleAddDog = (newDog) => {
-    this.setState({ isLoading: true });
-    Requests.postDog(newDog)
-      .then(() => {
-        Requests.getAllDogs((dogs) => this.setState({ allDogs: dogs }));
-        toast.success(`Created ${newDog.name}`);
-      })
-      .finally(() => {
-        this.setState({ isLoading: false });
-      });
+  updateRequest = async () => {
+    await this.allDogsRequest();
   };
 
-  handleDeleteDog = (id) => {
-    this.setState({ isLoading: true });
-    Requests.deleteDog(id)
-      .then(() =>
-        Requests.getAllDogs((dogs) => this.setState({ allDogs: dogs }))
-      )
-      .finally(() => {
-        this.setState({ isLoading: false });
-      });
-  };
+  handleAddDog = this.withLoading(async (newDog) => {
+    await Requests.postDog(newDog);
+    await this.allDogsRequest();
+    toast.success(`Created ${newDog.name}`);
+  });
 
-  handleUpdateDog = (id, isFavorite) => {
-    this.setState({ isLoading: true });
-    Requests.updateDog(id, isFavorite)
-      .then(() => {
-        Requests.getAllDogs((dogs) => this.setState({ allDogs: dogs }));
-      })
-      .finally(() => {
-        this.setState({ isLoading: false });
-      });
-  };
+  handleDeleteDog = this.withLoading(async (id) => {
+    await Requests.deleteDog(id);
+    await this.updateRequest();
+  });
 
-  handleCreateForm = (create) => {
-    if (create === "create") {
-      this.setState((prevState) => ({ showForm: !prevState.showForm }));
-    } else {
-      this.setState({ showForm: false });
-    }
-  };
+  handleUpdateDog = this.withLoading(async (id, isFavorite) => {
+    await Requests.updateDog(id, isFavorite);
+    await this.updateRequest();
+  });
 
   render() {
-    const {
-      allDogs,
-      showForm,
-      listOfFavoriteDogs,
-      listOfUnfavoriteDogs,
-      handleUpdateDog,
-      handleDeleteDog,
-      isLoading,
-      handleAddDog,
-    } = this.state;
+    const shouldShowForm = this.state.activeTab === VALID_ACTIVE_TABS.createDogForm;
+
+    const filteredDogs = (() => {
+      switch (this.state.activeTab) {
+        case "favorited":
+          return this.listOfFavoriteDogs();
+        case "unfavorited":
+          return this.listOfUnfavoriteDogs();
+        case "none":
+          return this.state.allDogs;
+        case "create-dog-form":
+          return [];
+        default:
+          return [];
+      }
+    })();
 
     return (
-      <div className="App" style={{ backgroundColor: "goldenrod" }}>
+      <div className="App" style={{ backgroundColor: "skyblue" }}>
         <header>
-          <h1>pup-e-picker (Functional)</h1>
+          <h1>pup-e-picker (Class)</h1>
         </header>
         <section id="main-section">
           <ClassSection
-            showForm={this.handleCreateForm}
-            allDogs={allDogs}
-            dogsCategory={this.dogsCategory}
+            toggleTab={this.toggleTab} 
+            allDogs={this.state.allDogs} 
           />
           <div className="content-container">
-            {!showForm && (
+            {!shouldShowForm && (
               <ClassDogs
-                category={
-                  listOfFavoriteDogs.length === 0
-                    ? listOfUnfavoriteDogs
-                    : listOfFavoriteDogs
-                }
-                handleUpdateDog={handleUpdateDog}
-                allDogs={allDogs}
-                onDelete={handleDeleteDog}
-                isLoading={isLoading}
+                filteredDogs={filteredDogs}
+                handleUpdateDog={this.handleUpdateDog}
+                allDogs={this.state.allDogs}
+                handleDeleteDog={this.handleDeleteDog}
+                isLoading={this.state.isLoading}
               />
             )}
-
-            {showForm && (
+            {shouldShowForm && (
               <ClassCreateDogForm
-                onAddDog={handleAddDog}
-                isLoading={isLoading}
+                onAddDog={this.handleAddDog}
+                isLoading={this.state.isLoading}
               />
             )}
           </div>

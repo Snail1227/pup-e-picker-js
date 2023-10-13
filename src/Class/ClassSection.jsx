@@ -5,54 +5,61 @@ export class ClassSection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedCategory: null,
+      selectedCategory: "none",
     };
   }
 
+  favoritedCount = () => {
+    return this.props.allDogs.filter((dog) => dog.isFavorite).length;
+  };
+
+  unfavoritedCount = () => {
+    return this.props.allDogs.filter((dog) => !dog.isFavorite).length;
+  };
+
   handleCategoryClick = (category) => {
     if (this.state.selectedCategory === category) {
-      this.setState({ selectedCategory: null });
-      this.props.dogsCategory(null);
+      this.setState({ selectedCategory: "none" });
+      this.props.toggleTab("none");
     } else {
       this.setState({ selectedCategory: category });
-      this.props.dogsCategory(category);
+      this.props.toggleTab(category);
     }
-    this.props.showForm(category);
   };
 
   render() {
-    const { allDogs } = this.props;
-    const favoritedCount = allDogs.filter((dog) => dog.isFavorite).length;
-    const unfavoritedCount = allDogs.length - favoritedCount;
-
     return (
       <div className="container-header">
         <div className="container-label">Dogs: </div>
-        <Link to={"/functional"} className="btn">
-          Change to Functional
+        <Link to={"/class"} className="btn">
+          Change to Class
         </Link>
         <div className="selectors">
+          {/* This should display the favorited count */}
           <div
             className={`selector ${
-              this.state.selectedCategory === "favorite" ? "active" : ""
+              this.state.selectedCategory === "favorited" ? "active" : ""
             }`}
-            onClick={() => this.handleCategoryClick("favorite")}
+            onClick={() => this.handleCategoryClick("favorited")}
           >
-            favorited ( {favoritedCount} )
+            favorited ( {this.favoritedCount()} )
           </div>
+
+          {/* This should display the unfavorited count */}
           <div
             className={`selector ${
-              this.state.selectedCategory === "unfavorite" ? "active" : ""
+              this.state.selectedCategory === "unfavorited" ? "active" : ""
             }`}
-            onClick={() => this.handleCategoryClick("unfavorite")}
+            onClick={() => this.handleCategoryClick("unfavorited")}
           >
-            unfavorited ( {unfavoritedCount} )
+            unfavorited ( {this.unfavoritedCount()} )
           </div>
+
           <div
             className={`selector ${
-              this.state.selectedCategory === "create" ? "active" : ""
+              this.state.selectedCategory === "create-dog-form" ? "active" : ""
             }`}
-            onClick={() => this.handleCategoryClick("create")}
+            onClick={() => this.handleCategoryClick("create-dog-form")}
           >
             create dog
           </div>

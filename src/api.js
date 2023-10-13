@@ -3,15 +3,14 @@ export const baseUrl = "http://localhost:3000/pup-e";
 export const Requests = {
   // should return a promise with all dogs in the database
 
-  getAllDogs: (setAllDogs) => {
-    fetch(baseUrl, {
+  getAllDogs: () => {
+    return fetch(baseUrl, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((response) => response.json())
-      .then((data) => setAllDogs(data));
   },
 
   // should create a dog in the database from a partial dog object
