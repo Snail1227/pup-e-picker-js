@@ -1,18 +1,182 @@
 {
-  "pup-e": [
+  "dogs": [
     {
-      "name": "Scooby-Doo",
-      "comment": "It looks like we've got ourselves a mystery.",
-      "image": "/assets/blue-heeler.png",
-      "id": 1,
-      "isFavorite": true
+      "name": "Sallie",
+      "image": "/assets/boxer.png",
+      "description": "District Diverse Beauty override Southeast Liaison matrix Handmade",
+      "isFavorite": true,
+      "id": 0
     },
     {
-      "name": "asdfasdfva",
-      "comment": "dfadsfasdf",
-      "image": "/assets/corgi.png",
+      "name": "Rodolfo",
+      "image": "/assets/boxer.png",
+      "description": "International Markets Money Lari ick",
       "isFavorite": false,
+      "id": 1
+    },
+    {
+      "name": "Antonetta",
+      "image": "/assets/cowardly.png",
+      "description": "Neutrois Roentgenium Gibraltar Marketing AI",
+      "isFavorite": true,
       "id": 2
+    },
+    {
+      "name": "Kevin",
+      "image": "/assets/chihuahua.avif",
+      "description": "Rap Architect Sports synthesize compliance withdrawal Hybrid",
+      "isFavorite": false,
+      "id": 3
+    },
+    {
+      "name": "Edmond",
+      "image": "/assets/dalmation.png",
+      "description": "buffer panel Progressive strategize helplessly cyan payment Novella",
+      "isFavorite": false,
+      "id": 4
+    },
+    {
+      "name": "Abbigail",
+      "image": "/assets/dalmation.png",
+      "description": "despite 24 Southeast North barring Guarani Road",
+      "isFavorite": false,
+      "id": 5
+    },
+    {
+      "name": "Tyrell",
+      "image": "/assets/corgi.png",
+      "description": "volt protocol fearful excluding productize",
+      "isFavorite": false,
+      "id": 6
+    },
+    {
+      "name": "Pete",
+      "image": "/assets/dalmation.png",
+      "description": "South Electric networks Account Facilitator",
+      "isFavorite": false,
+      "id": 7
+    },
+    {
+      "name": "Solon",
+      "image": "/assets/boxer.png",
+      "description": "Hybrid Crew input afraid Circles Staffordshire Morar",
+      "isFavorite": false,
+      "id": 8
+    },
+    {
+      "name": "Elliott",
+      "image": "/assets/corgi.png",
+      "description": "Tricycle Bahamian Light grouchy Hop",
+      "isFavorite": false,
+      "id": 9
+    },
+    {
+      "name": "Jeffrey",
+      "image": "/assets/dalmation.png",
+      "description": "Armenia West West Jazz Central",
+      "isFavorite": true,
+      "id": 10
+    },
+    {
+      "name": "Hazle",
+      "image": "/assets/dalmation.png",
+      "description": "card adapter East Van Account Electronic East along",
+      "isFavorite": true,
+      "id": 11
+    },
+    {
+      "name": "Luciano",
+      "image": "/assets/blue-heeler.png",
+      "description": "Car turquoise discourage Diesel green Oriental Forward",
+      "isFavorite": true,
+      "id": 12
+    },
+    {
+      "name": "Earlene",
+      "image": "/assets/boxer.png",
+      "description": "Luxurious Cove Fresh Glen Cotton",
+      "isFavorite": true,
+      "id": 13
+    },
+    {
+      "name": "Anderson",
+      "image": "/assets/cowardly.png",
+      "description": "Industrial where intranet B2B relationships Solutions Schaefer",
+      "isFavorite": false,
+      "id": 14
+    },
+    {
+      "name": "Dedrick",
+      "image": "/assets/cowardly.png",
+      "description": "artificial East capacitor transparent Keyboard",
+      "isFavorite": false,
+      "id": 15
+    },
+    {
+      "name": "Chyna",
+      "image": "/assets/blue-heeler.png",
+      "description": "Mobility initiatives Web Unbranded East Delaware grow Bicycle",
+      "isFavorite": false,
+      "id": 16
+    },
+    {
+      "name": "Dejuan",
+      "image": "/assets/cowardly.png",
+      "description": "Creative indexing Account Dynamic Hill creamy yellow",
+      "isFavorite": true,
+      "id": 17
+    },
+    {
+      "name": "London",
+      "image": "/assets/blue-heeler.png",
+      "description": "Jada TLS intangible Smart incentivize supreme functionalities",
+      "isFavorite": false,
+      "id": 18
+    },
+    {
+      "name": "Myrl",
+      "image": "/assets/chihuahua.avif",
+      "description": "Southwest Wagon synthesize Northwest Automotive",
+      "isFavorite": false,
+      "id": 19
+    },
+    {
+      "name": "sdgfsdf",
+      "image": "/assets/boxer.jpeg",
+      "isFavorite": false,
+      "id": 20
+    },
+    {
+      "name": "asdfsa",
+      "image": "/assets/chihuahua.avif",
+      "isFavorite": false,
+      "id": 21
+    },
+    {
+      "name": "asfa",
+      "image": "/assets/chihuahua.avif",
+      "isFavorite": false,
+      "id": 22
+    },
+    {
+      "name": "zsdfszadf",
+      "image": "/assets/chihuahua.avif",
+      "isFavorite": false,
+      "id": 23
+    },
+    {
+      "name": "sadf",
+      "comment": "asdfasfd",
+      "image": "/assets/chihuahua.avif",
+      "isFavorite": false,
+      "id": 24
+    },
+    {
+      "name": "asdfasfas",
+      "comment": "dfasdfasfdsadf",
+      "image": "/assets/chihuahua.avif",
+      "isFavorite": false,
+      "id": 25
     }
   ]
 }

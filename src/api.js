@@ -1,4 +1,4 @@
-export const baseUrl = "http://localhost:3000/pup-e";
+export const baseUrl = "http://localhost:3000/dogs";
 
 export const Requests = {
   // should return a promise with all dogs in the database
@@ -9,8 +9,7 @@ export const Requests = {
       headers: {
         "Content-Type": "application/json",
       },
-    })
-      .then((response) => response.json())
+    }).then((response) => response.json());
   },
 
   // should create a dog in the database from a partial dog object

@@ -28,7 +28,6 @@ export class ClassCreateDogForm extends Component {
 
     const { nameInput, commentInput, pictureSelect } = this.state;
     const filledData = nameInput && commentInput;
-    console.log(dogPictures)
     if (filledData) {
       this.props.onAddDog({
         name: nameInput,

@@ -5,10 +5,9 @@ export const FunctionalDogs = ({
   handleDeleteDog,
   isLoading,
   handleUpdateDog,
-  filteredDogs
+  filteredDogs,
 }) => {
-  
-  return ( 
+  return (
     <>
       {filteredDogs.map((item) => (
         <DogCard

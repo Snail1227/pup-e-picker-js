@@ -23,7 +23,7 @@ export const FunctionalCreateDogForm = ({ onAddDog, isLoading }) => {
     if (filledData) {
       onAddDog({
         name: nameInput,
-        comment: commentInput,
+        description: commentInput,
         image: pictureSelect,
         isFavorite: false,
       });
@@ -68,10 +68,7 @@ export const FunctionalCreateDogForm = ({ onAddDog, isLoading }) => {
       >
         {Object.entries(dogPictures).map(([label, pictureValue]) => {
           return (
-            <option 
-              value={pictureValue} 
-              key={pictureValue}
-            >
+            <option value={pictureValue} key={pictureValue}>
               {label}
             </option>
           );

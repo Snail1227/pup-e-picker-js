@@ -21,6 +21,7 @@ export class ClassApp extends Component {
 
   listOfFavoriteDogs = () => this.state.allDogs.filter((dog) => dog.isFavorite);
   listOfUnfavoriteDogs = () => this.state.allDogs.filter((dog) => !dog.isFavorite);
+  previousDogsState = [...this.state.allDogs];
 
   toggleTab = (newTab) => {
     if (this.state.activeTab === newTab) {
@@ -39,31 +40,59 @@ export class ClassApp extends Component {
   withLoading = (func) => async (...args) => {
     this.setState({ isLoading: true });
     try {
-      await func(...args);
+        await func(...args);
     } finally {
-      this.setState({ isLoading: false });
+        this.setState({ isLoading: false });
     }
-  };
+};
 
-  updateRequest = async () => {
-    await this.allDogsRequest();
-  };
+  // updateRequest = async () => {
+  //   await this.allDogsRequest();
+  // };
 
-  handleAddDog = this.withLoading(async (newDog) => {
-    await Requests.postDog(newDog);
-    await this.allDogsRequest();
+  handleAddDog = this.withLoading((newDog) => {
+    this.setState(prevState => ({ allDogs: [...prevState.allDogs, newDog] }));
+    
+    Requests.postDog(newDog)
+      .catch(() => {
+        this.setState({ allDogs: this.previousDogsState });
+        toast.error("Error to add new dog.");
+      });
     toast.success(`Created ${newDog.name}`);
+
+    // await Requests.postDog(newDog);
+    // await this.allDogsRequest();
+    // toast.success(`Created ${newDog.name}`);
   });
 
-  handleDeleteDog = this.withLoading(async (id) => {
-    await Requests.deleteDog(id);
-    await this.updateRequest();
+  handleDeleteDog = this.withLoading((id) => {
+    this.setState(prevState => ({ 
+      allDogs: prevState.allDogs.filter((dog) => dog.id !== id) 
+    }));
+    
+    Requests.deleteDog(id).catch(() => {
+      this.setState({ allDogs: this.previousDogsState });
+      toast.error("Error to delete the dog.");
+    });
+
+    // await Requests.deleteDog(id);
+    // await this.updateRequest();
   });
 
   handleUpdateDog = this.withLoading(async (id, isFavorite) => {
-    await Requests.updateDog(id, isFavorite);
-    await this.updateRequest();
-  });
+    this.setState((prevState) => ({ 
+      allDogs: prevState.allDogs.map((dog) =>
+        dog.id === id ? { ...dog, isFavorite: !isFavorite } : dog
+      )
+    }));
+    
+    Requests.updateDog(id, isFavorite).catch(() => {
+      this.setState({ allDogs: this.previousDogsState });
+      toast.error("Failed to update the dog.");
+    });
+      // await Requests.updateDog(id, isFavorite);
+      // await this.updateRequest();
+    });
 
   render() {
     const shouldShowForm = this.state.activeTab === VALID_ACTIVE_TABS.createDogForm;
@@ -92,6 +121,9 @@ export class ClassApp extends Component {
           <ClassSection
             toggleTab={this.toggleTab} 
             allDogs={this.state.allDogs} 
+            activeTab={this.state.activeTab}
+            listOfFavoriteDogs={this.listOfFavoriteDogs}
+            listOfUnfavoriteDogs={this.listOfUnfavoriteDogs}
           />
           <div className="content-container">
             {!shouldShowForm && (

@@ -1,22 +1,12 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import { VALID_ACTIVE_TABS } from "./FunctionalApp";
 
-export const FunctionalSection = ({ allDogs, toggleTab }) => {
-  const [selectedCategory, setSelectedCategory] = useState("none");
-
-  const favoritedCount = allDogs.filter((dog) => dog.isFavorite).length;
-  const unfavoritedCount = allDogs.filter((dog) => !dog.isFavorite).length;
-
-  const handleCategoryClick = (category) => {
-    if (selectedCategory === category) {
-      setSelectedCategory('none');
-      toggleTab("none");
-    } else {
-      setSelectedCategory(category);
-      toggleTab(category);
-    }
-  };
-
+export const FunctionalSection = ({
+  toggleTab,
+  activeTab,
+  listOfFavoriteDogs,
+  listOfUnfavoriteDogs,
+}) => {
   return (
     <div className="container-header">
       <div className="container-label">Dogs: </div>
@@ -27,28 +17,28 @@ export const FunctionalSection = ({ allDogs, toggleTab }) => {
         {/* This should display the favorited count */}
         <div
           className={`selector ${
-            selectedCategory === "favorited" ? "active" : ""
+            activeTab === VALID_ACTIVE_TABS.favorited ? "active" : ""
           }`}
-          onClick={() => handleCategoryClick("favorited")}
+          onClick={() => toggleTab(VALID_ACTIVE_TABS.favorited)}
         >
-          favorited ( {favoritedCount} )
+          favorited ( {listOfFavoriteDogs.length} )
         </div>
 
         {/* This should display the unfavorited count */}
         <div
           className={`selector ${
-            selectedCategory === "unfavorited" ? "active" : ""
+            activeTab === VALID_ACTIVE_TABS.unfavorited ? "active" : ""
           }`}
-          onClick={() => handleCategoryClick("unfavorited")}
+          onClick={() => toggleTab(VALID_ACTIVE_TABS.unfavorited)}
         >
-          unfavorited ( {unfavoritedCount} )
+          unfavorited ( {listOfUnfavoriteDogs.length} )
         </div>
 
         <div
           className={`selector ${
-            selectedCategory === "create-dog-form" ? "active" : ""
+            activeTab === VALID_ACTIVE_TABS.createDogForm ? "active" : ""
           }`}
-          onClick={() => handleCategoryClick("create-dog-form")}
+          onClick={() => toggleTab(VALID_ACTIVE_TABS.createDogForm)}
         >
           create dog
         </div>
